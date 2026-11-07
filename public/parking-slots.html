@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parking Slots - Parking Slot Management System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">🅿️</div>
+        <div class="brand-info">
+          <h2>ParkMaster</h2>
+          <span>Security Portal</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main Menu</div>
+        <a href="dashboard.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          Dashboard
+        </a>
+        <a href="vehicles.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          Vehicle Management
+        </a>
+        <a href="parking-slots.html" class="nav-link active">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          Parking Slots
+        </a>
+        <a href="parking-records.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Parking Records
+        </a>
+
+        <div class="nav-section-title">Administration</div>
+        <a href="users.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          User Management
+        </a>
+        <a href="reports.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          Reports & Analytics
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <div class="avatar-circle" id="sidebarAvatar">A</div>
+          <div class="user-details">
+            <div class="name" id="sidebarUserName">Security Staff</div>
+            <div class="role-badge" id="sidebarUserRole">STAFF</div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logoutUser()">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+      <header class="top-navbar">
+        <div class="nav-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="page-title-box">
+            <h1>Parking Slot Visual Grid</h1>
+            <p>Real-time slot telemetry, visual bay status & rate settings</p>
+          </div>
+        </div>
+
+        <div class="nav-right">
+          <button class="btn btn-secondary" onclick="openRatesModal()">
+            💰 Parking Rates
+          </button>
+          <button class="btn btn-primary" onclick="openSlotModal()">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Add New Slot
+          </button>
+        </div>
+      </header>
+
+      <main class="content-body">
+        <!-- FILTER & LEGEND BAR -->
+        <div class="card" style="margin-bottom: 20px;">
+          <div class="card-body" style="padding: 16px 20px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+              <div class="filter-group">
+                <input type="text" id="slotSearch" class="filter-input" placeholder="Search slot (e.g. A-101) or vehicle..." oninput="debounceSearch()">
+                <select id="statusFilter" class="filter-select" onchange="loadSlots()">
+                  <option value="">All Statuses</option>
+                  <option value="0">🟢 Available Only</option>
+                  <option value="1">🔴 Occupied Only</option>
+                </select>
+                <select id="typeFilter" class="filter-select" onchange="loadSlots()">
+                  <option value="">All Vehicle Types</option>
+                  <option value="Car">Car</option>
+                  <option value="Bike">Bike</option>
+                  <option value="Bus">Bus</option>
+                  <option value="Truck">Truck</option>
+                </select>
+              </div>
+
+              <!-- Status Legend -->
+              <div style="display: flex; align-items: center; gap: 16px; font-size: 12.5px;">
+                <span style="display: flex; align-items: center; gap: 6px;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: #10b981;"></span>
+                  Available: <strong id="countAvail">0</strong>
+                </span>
+                <span style="display: flex; align-items: center; gap: 6px;">
+                  <span style="width: 10px; height: 10px; border-radius: 50%; background: #ef4444;"></span>
+                  Occupied: <strong id="countOccupied">0</strong>
+                </span>
+                <span style="display: flex; align-items: center; gap: 6px;">
+                  Total: <strong id="countTotal">0</strong>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VISUAL GRID -->
+        <div class="slots-container" id="slotsGrid">
+          <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted);">
+            Loading visual parking bays from MySQL database...
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ADD / EDIT SLOT MODAL -->
+  <div class="modal-overlay" id="slotModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="slotModalTitle">Create Parking Slot</h3>
+        <button class="modal-close-btn" onclick="closeSlotModal()">✕</button>
+      </div>
+      <form id="slotForm" onsubmit="handleSaveSlot(event)">
+        <input type="hidden" id="editSlotId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Slot Number / Identifier *</label>
+            <input type="text" id="slotNumber" class="form-control" placeholder="e.g. A-105, B-205" required style="text-transform: uppercase;">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vehicle Type Allowed *</label>
+              <select id="slotVehType" class="form-control" required>
+                <option value="Car">Car</option>
+                <option value="Bike">Bike</option>
+                <option value="Bus">Bus</option>
+                <option value="Truck">Truck</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Initial Status</label>
+              <select id="slotStatus" class="form-control">
+                <option value="0">🟢 Available</option>
+                <option value="1">🔴 Occupied</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Location / Section *</label>
+            <input type="text" id="slotLocation" class="form-control" placeholder="e.g. Basement 1 - Section A" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeSlotModal()">Cancel</button>
+          <button type="submit" id="btnSaveSlot" class="btn btn-primary">Save Slot</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- QUICK PARK ENTRY MODAL -->
+  <div class="modal-overlay" id="quickParkModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>🚗 Assign Vehicle to Slot <span id="qpSlotName">-</span></h3>
+        <button class="modal-close-btn" onclick="closeQuickParkModal()">✕</button>
+      </div>
+      <form id="quickParkForm" onsubmit="handleQuickPark(event)">
+        <input type="hidden" id="qpSlotId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Vehicle Registration Number *</label>
+            <input type="text" id="qpVehNumber" class="form-control" placeholder="e.g. KA-01-AB-1234" required style="text-transform: uppercase;">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vehicle Type</label>
+              <input type="text" id="qpVehType" class="form-control" readonly style="background: #f1f5f9;">
+            </div>
+            <div class="form-group">
+              <label>Vehicle Model</label>
+              <input type="text" id="qpVehModel" class="form-control" placeholder="e.g. Honda City">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Owner Name</label>
+              <input type="text" id="qpOwnerName" class="form-control" placeholder="Owner Name">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="text" id="qpPhone" class="form-control" placeholder="Phone Number">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeQuickParkModal()">Cancel</button>
+          <button type="submit" id="btnConfirmQuickPark" class="btn btn-primary">Confirm & Assign Slot</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- RATES CONFIGURATION MODAL -->
+  <div class="modal-overlay" id="ratesModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>💰 Hourly Parking Rates Configuration</h3>
+        <button class="modal-close-btn" onclick="closeRatesModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 16px;">
+          Rates are stored in MySQL and used by the backend to calculate parking charges automatically upon vehicle exit.
+        </p>
+        <div id="ratesList" style="display: flex; flex-direction: column; gap: 14px;">
+          <!-- Loaded dynamically -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeRatesModal()">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/slots.js"></script>
+</body>
+</html>

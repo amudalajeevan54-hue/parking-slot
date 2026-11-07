@@ -1,0 +1,25 @@
+{
+  "name": "parking-slot-management",
+  "version": "1.0.0",
+  "description": "Professional Parking Slot Management System built with HTML5, CSS3, JavaScript, Node.js, Express.js, and MySQL",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [
+    "parking",
+    "management",
+    "express",
+    "mysql",
+    "dashboard"
+  ],
+  "author": "Antigravity",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "mysql2": "^3.24.6"
+  }
+}

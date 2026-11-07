@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Parking Slot Management System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">🅿️</div>
+        <div class="brand-info">
+          <h2>ParkMaster</h2>
+          <span>Security Portal</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main Menu</div>
+        <a href="dashboard.html" class="nav-link active">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          Dashboard
+        </a>
+        <a href="vehicles.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          Vehicle Management
+        </a>
+        <a href="parking-slots.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          Parking Slots
+        </a>
+        <a href="javascript:void(0)" onclick="openEntryModal()" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/></svg>
+          Parking Entry
+        </a>
+        <a href="javascript:void(0)" onclick="openExitModal()" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          Parking Exit
+        </a>
+        <a href="parking-records.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Parking Records
+        </a>
+
+        <div class="nav-section-title">Administration</div>
+        <a href="users.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          User Management
+        </a>
+        <a href="reports.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          Reports & Analytics
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <div class="avatar-circle" id="sidebarAvatar">A</div>
+          <div class="user-details">
+            <div class="name" id="sidebarUserName">Security Staff</div>
+            <div class="role-badge" id="sidebarUserRole">ADMINISTRATOR</div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logoutUser()">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+      <!-- TOP NAV -->
+      <header class="top-navbar">
+        <div class="nav-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="page-title-box">
+            <h1>Parking Operations Dashboard</h1>
+            <p>Real-time parking surveillance and slot telemetry</p>
+          </div>
+        </div>
+
+        <div class="nav-right">
+          <div class="live-clock" id="liveClock">
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span id="clockTime">--:--:--</span>
+          </div>
+          <button class="header-action-btn" title="Refresh Dashboard" onclick="loadDashboardData()">
+            <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY -->
+      <main class="content-body">
+        <!-- QUICK ACTIONS STRIP -->
+        <div class="quick-actions-bar">
+          <div class="quick-action-card" onclick="openEntryModal()">
+            <div class="qa-icon" style="background:#eff6ff; color:#2563eb;">🚗</div>
+            <div class="qa-info">
+              <h4>New Vehicle Entry</h4>
+              <p>Assign slot & record arrival</p>
+            </div>
+          </div>
+          <div class="quick-action-card" onclick="openExitModal()">
+            <div class="qa-icon" style="background:#ecfdf5; color:#10b981;">🏁</div>
+            <div class="qa-info">
+              <h4>Process Vehicle Exit</h4>
+              <p>Calculate fee & release slot</p>
+            </div>
+          </div>
+          <a href="vehicles.html" class="quick-action-card">
+            <div class="qa-icon" style="background:#fef3c7; color:#d97706;">🚙</div>
+            <div class="qa-info">
+              <h4>Register Vehicle</h4>
+              <p>Add new customer vehicle</p>
+            </div>
+          </a>
+          <a href="parking-slots.html" class="quick-action-card">
+            <div class="qa-icon" style="background:#f3e8ff; color:#7c3aed;">🅿️</div>
+            <div class="qa-info">
+              <h4>View Slot Grid</h4>
+              <p>Full real-time floor view</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- 8 STATS CARDS -->
+        <div class="stats-grid">
+          <div class="stat-card blue">
+            <div class="stat-content">
+              <div class="stat-label">Total Parking Slots</div>
+              <div class="stat-value" id="statTotalSlots">0</div>
+              <div class="stat-sub">Configured capacity</div>
+            </div>
+            <div class="stat-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            </div>
+          </div>
+
+          <div class="stat-card green">
+            <div class="stat-content">
+              <div class="stat-label">Available Slots</div>
+              <div class="stat-value" id="statAvailableSlots">0</div>
+              <div class="stat-sub" id="statAvailablePct">Ready for parking</div>
+            </div>
+            <div class="stat-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+          </div>
+
+          <div class="stat-card red">
+            <div class="stat-content">
+              <div class="stat-label">Occupied Slots</div>
+              <div class="stat-value" id="statOccupiedSlots">0</div>
+              <div class="stat-sub">Currently in use</div>
+            </div>
+            <div class="stat-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+          </div>
+
+          <div class="stat-card purple">
+            <div class="stat-content">
+              <div class="stat-label">Currently Parked</div>
+              <div class="stat-value" id="statCurrentlyParked">0</div>
+              <div class="stat-sub">Active parked vehicles</div>
+            </div>
+            <div class="stat-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </div>
+          </div>
+
+          <div class="stat-card orange">
+            <div class="stat-content">
+              <div class="stat-label">Total Vehicles</div>
+              <div class="stat-value" id="statTotalVehicles">0</div>
+              <div class="stat-sub">Registered in database</div>
+            </div>
+            <div class="stat-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+            </div>
+          </div>
+
+          <div class="stat-card blue">
+            <div class="stat-content">
+              <div class="stat-label">Today's Entries</div>
+              <div class="stat-value" id="statTodayEntries">0</div>
+              <div class="stat-sub">Vehicles entered today</div>
+            </div>
+            <div class="stat-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"/></svg>
+            </div>
+          </div>
+
+          <div class="stat-card orange">
+            <div class="stat-content">
+              <div class="stat-label">Today's Exits</div>
+              <div class="stat-value" id="statTodayExits">0</div>
+              <div class="stat-sub">Completed exits today</div>
+            </div>
+            <div class="stat-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+            </div>
+          </div>
+
+          <div class="stat-card green">
+            <div class="stat-content">
+              <div class="stat-label">Total Revenue</div>
+              <div class="stat-value" id="statTotalRevenue">₹0.00</div>
+              <div class="stat-sub" id="statTodayRevenue">Today: ₹0.00</div>
+            </div>
+            <div class="stat-icon">
+              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- VISUAL CHARTS SECTION -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 24px;">
+          <!-- Availability Gauge & Vehicle Type Breakdown -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"/></svg>
+                Slot Occupancy & Capacity Ratio
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="availability-visual">
+                <div class="donut-chart" id="donutChart">
+                  <svg width="160" height="160">
+                    <circle cx="80" cy="80" r="65" fill="none" stroke="#e2e8f0" stroke-width="18" />
+                    <circle id="donutOccupiedPath" cx="80" cy="80" r="65" fill="none" stroke="#ef4444" stroke-width="18" stroke-dasharray="408.4" stroke-dashoffset="408.4" stroke-linecap="round" style="transition: stroke-dashoffset 1s ease;" />
+                  </svg>
+                  <div class="donut-center-text">
+                    <div class="pct" id="donutPctText">0%</div>
+                    <div class="lbl">Occupied</div>
+                  </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 12px; min-width: 180px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                      <span style="width: 12px; height: 12px; border-radius: 3px; background: #10b981;"></span> Available
+                    </span>
+                    <strong id="legendAvailable">0 slots</strong>
+                  </div>
+                  <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <span style="display: flex; align-items: center; gap: 8px;">
+                      <span style="width: 12px; height: 12px; border-radius: 3px; background: #ef4444;"></span> Occupied
+                    </span>
+                    <strong id="legendOccupied">0 slots</strong>
+                  </div>
+                  <div id="typeStatsBreakdown" style="border-top: 1px solid #e2e8f0; padding-top: 10px; font-size: 12px;">
+                    <!-- Filled dynamically -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Revenue Trend Chart -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
+                Revenue Trend (Recent Days)
+              </div>
+              <span class="badge badge-primary">Direct from MySQL</span>
+            </div>
+            <div class="card-body">
+              <div class="chart-container" id="revenueBarChart">
+                <div style="margin: auto; color: var(--text-muted);">Loading revenue telemetry...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECENT PARKING ACTIVITIES & RECENT VEHICLES -->
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 24px;">
+          <!-- Recent Parking Activities -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                Recent Parking Activities
+              </div>
+              <a href="parking-records.html" class="btn btn-secondary btn-sm">View All Records</a>
+            </div>
+            <div class="card-body" style="padding: 0;">
+              <div class="table-wrapper" style="border: none;">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Slot</th>
+                      <th>Vehicle</th>
+                      <th>Type</th>
+                      <th>Entry Time</th>
+                      <th>Exit / Duration</th>
+                      <th>Fee</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="recentActivitiesTable">
+                    <tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 24px;">Loading activities...</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recently Registered Vehicles -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+                New Vehicles
+              </div>
+              <a href="vehicles.html" class="btn btn-secondary btn-sm">Manage</a>
+            </div>
+            <div class="card-body" style="padding: 12px 20px;">
+              <div id="recentVehiclesList" style="display: flex; flex-direction: column; gap: 12px;">
+                <div style="color: var(--text-muted); text-align: center; padding: 12px;">Loading...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- ENTRY MODAL -->
+  <div class="modal-overlay" id="entryModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>🚗 Vehicle Parking Entry</h3>
+        <button class="modal-close-btn" onclick="closeEntryModal()">✕</button>
+      </div>
+      <form id="entryForm" onsubmit="handleVehicleEntry(event)">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Registration Number *</label>
+            <input type="text" id="entryVehNumber" class="form-control" placeholder="e.g. KA-01-AB-1234" required style="text-transform: uppercase;">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vehicle Type *</label>
+              <select id="entryVehType" class="form-control" required onchange="filterAvailableSlots()">
+                <option value="Car">Car</option>
+                <option value="Bike">Bike</option>
+                <option value="Bus">Bus</option>
+                <option value="Truck">Truck</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Vehicle Model</label>
+              <input type="text" id="entryVehModel" class="form-control" placeholder="e.g. Honda City">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Owner Name</label>
+              <input type="text" id="entryOwnerName" class="form-control" placeholder="Owner Full Name">
+            </div>
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="text" id="entryPhone" class="form-control" placeholder="Phone Number">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Select Available Parking Slot *</label>
+            <select id="entrySlotId" class="form-control" required>
+              <option value="">-- Choose Slot --</option>
+            </select>
+            <div class="form-hint" id="entrySlotHint">Only unoccupied slots matching vehicle type are shown.</div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeEntryModal()">Cancel</button>
+          <button type="submit" id="btnConfirmEntry" class="btn btn-primary">Confirm & Park Vehicle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- EXIT MODAL -->
+  <div class="modal-overlay" id="exitModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3>🏁 Process Vehicle Exit</h3>
+        <button class="modal-close-btn" onclick="closeExitModal()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Search Parked Vehicle Number</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="exitSearchVeh" class="form-control" placeholder="e.g. KA-01-AB-1234" style="text-transform: uppercase;">
+            <button type="button" class="btn btn-primary" onclick="searchParkedVehicleForExit()">Search</button>
+          </div>
+        </div>
+
+        <!-- Exit Preview Area -->
+        <div id="exitPreviewArea" style="display: none;">
+          <div class="parking-receipt">
+            <div class="receipt-header">
+              <h4>🅿️ PARKING FEE RECEIPT</h4>
+              <p>ParkMaster Smart Management</p>
+            </div>
+            <div class="receipt-row">
+              <span>Vehicle Number:</span>
+              <strong id="recVehNumber">-</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Vehicle Type:</span>
+              <span id="recVehType">-</span>
+            </div>
+            <div class="receipt-row">
+              <span>Slot Number:</span>
+              <strong id="recSlotNumber">-</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Entry Time:</span>
+              <span id="recEntryTime">-</span>
+            </div>
+            <div class="receipt-row">
+              <span>Current / Exit Time:</span>
+              <span id="recExitTime">-</span>
+            </div>
+            <div class="receipt-row">
+              <span>Parked Duration:</span>
+              <strong id="recDuration">-</strong>
+            </div>
+            <div class="receipt-row">
+              <span>Hourly Rate:</span>
+              <span id="recHourlyRate">-</span>
+            </div>
+            <div class="receipt-row total">
+              <span>TOTAL PARKING CHARGE:</span>
+              <span id="recTotalFee">₹0.00</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeExitModal()">Cancel</button>
+        <button type="button" id="btnConfirmExit" class="btn btn-success" style="display: none;" onclick="confirmVehicleExit()">Complete Exit & Release Slot</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

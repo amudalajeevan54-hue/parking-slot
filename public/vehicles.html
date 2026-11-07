@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vehicle Management - Parking Slot Management System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">🅿️</div>
+        <div class="brand-info">
+          <h2>ParkMaster</h2>
+          <span>Security Portal</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main Menu</div>
+        <a href="dashboard.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+          Dashboard
+        </a>
+        <a href="vehicles.html" class="nav-link active">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
+          Vehicle Management
+        </a>
+        <a href="parking-slots.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          Parking Slots
+        </a>
+        <a href="parking-records.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Parking Records
+        </a>
+
+        <div class="nav-section-title">Administration</div>
+        <a href="users.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+          User Management
+        </a>
+        <a href="reports.html" class="nav-link">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          Reports & Analytics
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="user-profile-widget">
+          <div class="avatar-circle" id="sidebarAvatar">A</div>
+          <div class="user-details">
+            <div class="name" id="sidebarUserName">Security Staff</div>
+            <div class="role-badge" id="sidebarUserRole">STAFF</div>
+          </div>
+        </div>
+        <button class="logout-btn" onclick="logoutUser()">
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/></svg>
+          Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER -->
+    <div class="main-wrapper">
+      <header class="top-navbar">
+        <div class="nav-left">
+          <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          <div class="page-title-box">
+            <h1>Vehicle Management</h1>
+            <p>Register, search, modify, and monitor customer vehicles</p>
+          </div>
+        </div>
+
+        <div class="nav-right">
+          <button class="btn btn-primary" onclick="openVehicleModal()">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            Register New Vehicle
+          </button>
+        </div>
+      </header>
+
+      <main class="content-body">
+        <div class="card">
+          <div class="card-header">
+            <div class="table-filter-bar" style="width: 100%; margin-bottom: 0;">
+              <div class="filter-group">
+                <input type="text" id="searchInput" class="filter-input" placeholder="Search number, model, owner, phone..." style="width: 280px;" oninput="debounceSearch()">
+                <select id="typeFilter" class="filter-select" onchange="loadVehicles()">
+                  <option value="">All Vehicle Types</option>
+                  <option value="Car">Car</option>
+                  <option value="Bike">Bike</option>
+                  <option value="Bus">Bus</option>
+                  <option value="Truck">Truck</option>
+                </select>
+              </div>
+              <div style="font-size: 13px; color: var(--text-muted);">
+                Showing <strong id="vehicleCountText">0</strong> registered vehicles
+              </div>
+            </div>
+          </div>
+
+          <div class="card-body" style="padding: 0;">
+            <div class="table-wrapper" style="border: none;">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Vehicle Number</th>
+                    <th>Type</th>
+                    <th>Model</th>
+                    <th>Owner Name</th>
+                    <th>Phone</th>
+                    <th>Parking Status</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="vehiclesTableBody">
+                  <tr><td colspan="8" style="text-align: center; padding: 24px;">Loading vehicles from MySQL...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <!-- VEHICLE ADD / EDIT MODAL -->
+  <div class="modal-overlay" id="vehicleModal">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 id="modalTitle">Register New Vehicle</h3>
+        <button class="modal-close-btn" onclick="closeVehicleModal()">✕</button>
+      </div>
+      <form id="vehicleForm" onsubmit="handleSaveVehicle(event)">
+        <input type="hidden" id="editVehicleId">
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Vehicle Registration Number *</label>
+            <input type="text" id="vehNumber" class="form-control" placeholder="e.g. KA-01-AB-1234" required style="text-transform: uppercase;">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Vehicle Type *</label>
+              <select id="vehType" class="form-control" required>
+                <option value="Car">Car</option>
+                <option value="Bike">Bike</option>
+                <option value="Bus">Bus</option>
+                <option value="Truck">Truck</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Vehicle Model</label>
+              <input type="text" id="vehModel" class="form-control" placeholder="e.g. Honda City">
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Owner Name</label>
+            <input type="text" id="ownerName" class="form-control" placeholder="Full name of owner">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Phone Number</label>
+              <input type="text" id="ownerPhone" class="form-control" placeholder="e.g. 9876543210">
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="ownerEmail" class="form-control" placeholder="e.g. owner@example.com">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeVehicleModal()">Cancel</button>
+          <button type="submit" id="btnSaveVehicle" class="btn btn-primary">Save Vehicle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script src="js/vehicles.js"></script>
+</body>
+</html>

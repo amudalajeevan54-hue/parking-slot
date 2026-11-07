@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Parking Slot Management System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="login-body">
+
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="logo-icon">🚗</div>
+      <h2>ParkMaster Security</h2>
+      <p>Parking Slot Management System Login</p>
+    </div>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="username">Username or Email</label>
+        <input type="text" id="username" class="form-control" placeholder="e.g. admin@parking.com" required autofocus value="admin@parking.com">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="form-control" placeholder="Enter your password" required value="admin123">
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <label style="display: flex; align-items: center; gap: 8px; font-size: 12.5px; cursor: pointer; margin-bottom: 0;">
+          <input type="checkbox" id="showPassword" onchange="togglePasswordVisibility()"> Show Password
+        </label>
+      </div>
+
+      <button type="submit" id="loginBtn" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 15px;">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+        </svg>
+        Sign In to Dashboard
+      </button>
+    </form>
+
+    <div class="demo-credentials-box">
+      <strong>🔑 Default Login Credentials:</strong>
+      <div>• <strong>Administrator:</strong> admin@parking.com / admin123</div>
+      <div>• <strong>Security Staff:</strong> suresh@parking.com / staff123</div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script>
+    function togglePasswordVisibility() {
+      const pass = document.getElementById('password');
+      pass.type = pass.type === 'password' ? 'text' : 'password';
+    }
+
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.innerHTML = `<span>${message}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.remove(), 4000);
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const loginBtn = document.getElementById('loginBtn');
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      loginBtn.disabled = true;
+      loginBtn.innerHTML = 'Signing In...';
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          showToast('Login successful! Redirecting to dashboard...', 'success');
+          // Save session
+          localStorage.setItem('parking_user', JSON.stringify(data.user));
+          setTimeout(() => {
+            window.location.href = 'dashboard.html';
+          }, 800);
+        } else {
+          showToast(data.message || 'Login failed', 'error');
+          loginBtn.disabled = false;
+          loginBtn.innerHTML = 'Sign In to Dashboard';
+        }
+      } catch (err) {
+        showToast('Network error: ' + err.message, 'error');
+        loginBtn.disabled = false;
+        loginBtn.innerHTML = 'Sign In to Dashboard';
+      }
+    });
+
+    // If already logged in, redirect to dashboard
+    if (localStorage.getItem('parking_user')) {
+      window.location.href = 'dashboard.html';
+    }
+  </script>
+</body>
+</html>
